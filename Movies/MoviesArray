@@ -1,4 +1,35 @@
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class MoviesArray {}
+/*
+ * Simulate a movie theater that helps users to book and reserve seats.
+   reserve seats (if seat is taken, let them know it is taken and suggest an available seat)
+   cancel seats
+   retrieve initial seating charting
+ */
+
+public class MoviesArray {
+    int[][] movies = null;
+
+    public MoviesArray(int numberOfRows, int numberOfCols) {
+        arr = new int[numberOfRows][numberOfCols];
+        for (int row = 0; row < arr.length; row++) {
+            for (int col = 0; col < arr[0].length; col++) {
+                arr[row][col] = Integer.MIN_VALUE;
+            }
+        }
+    }
+
+    public void reserveSeat(int row, int col) {
+        try {
+        if (arr[row][col] == Integer.MIN_VALUE) {
+            arr[row][col] = 1;
+            System.out.println("Seat reserved successfully!");
+        } else {
+            System.out.println("Seat is taken! Please choose another seat.");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Invalid row or column.");
+        }
+    }
+  }
+}
