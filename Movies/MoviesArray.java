@@ -56,9 +56,9 @@ public class MoviesArray {
         row -= 1;
         col -= 1;
         if (seats[row][col] == Integer.MIN_VALUE) {
-            System.out.println("Seat at row: " + row + " and column: " + col + " is empty.");
+            System.out.println("Seat at row: " + (row + 1) + " and column: " + (col + 1) + " is empty.");
         } else {
-            System.out.println("Seat at row: " + row + " and column: " + col + " is reserved.");
+            System.out.println("Seat at row: " + (row + 1) + " and column: " + (col + 1) + " is reserved.");
         }
     } catch (ArrayIndexOutOfBoundsException e) {
         System.out.println("Provided row or column doesn't exist.");
