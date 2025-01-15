@@ -12,71 +12,68 @@ public class MoviesArray {
     int[][] movies = null;
 
     public MoviesArray(int numberOfRows, int numberOfCols) {
-        arr = new int[numberOfRows][numberOfCols];
-        for (int row = 0; row < arr.length; row++) {
-            for (int col = 0; col < arr[0].length; col++) {
-                arr[row][col] = Integer.MIN_VALUE;
+        movies = new int[numberOfRows][numberOfCols];
+        for (int row = 0; row < movies.length; row++) {
+            for (int col = 0; col < movies[0].length; col++) {
+                movies[row][col] = Integer.MIN_VALUE;
             }
         }
     }
 
     public void reserveSeat(int row, int col) {
         try {
-        if (arr[row][col] == Integer.MIN_VALUE) {
-            arr[row][col] = 1;
-            System.out.println("Seat reserved successfully!");
+            if (arr[row][col] == Integer.MIN_VALUE) {
+                arr[row][col] = 1;
+                System.out.println("Seat reserved successfully!");
         } else {
-            System.out.println("Seat is taken! Please choose another seat.");
+            System.out.println("Seat is taken! Suggesting Alternative...");
+            suggestAlternateSeat();
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Invalid row or column.");
         }
     }
   }
 
-  public void traverseSeats() {
-    try {
-        for (int row = 0; row < arr.length; row++) {
-            for (int col = 0; col < arr[0].length; col++) {
-                System.out.print(arr[row][col] + " ");
-            }
-            System.out.println();
-        }
-    } catch (Exception e) {
-        System.out.println("Array does not exist.");
-    }
-  }
-
-  public void searchSeat(int seatNumber) {
-    for (int row = 0; row < arr.length; row++) {
-        for (int col = 0; col < arr[0].length; col++) {
-            if (arr[row][col] == seatNumber) {
+  public void suggestAlternateSeat() {
+    for (int row = 0; row < movies.length; row++) {
+        for (int col = 0; col < movies[0].length; col++) {
+            if (movies[row][col] == Integer.MIN_VALUE) {
                 System.out.println("Seat found at row: " + row + " and column: " + col);
                 return;
             }
         }
     }
+    System.out.println("No alternative seats available.");
   }
 
+  public void traverseSeats() {
+    System.out.println("Current seating: ");
+    System.out.println("   ");
+    for (int col = 0; col < arr[0].length; col++) {
+        System.out.print(col + " ");
+    }
+    System.out.println();
+
+    for (int row = 0; row < arr.length; row++) {
+        System.out.print(row + " ");
+        for (int col = 0; col < movies[0].length; col++) {
+            String statusOfSeat = movies[row][col] == Integer.MIN_VALUE ? "0" : "x";
+            System.out.print(statusOfSeat + " ");
+        }
+        System.out.println();
+    }
+  }
+  
     public void cancelSeat(int row, int col) {
         try {
-            if (arr[row][col] == 1) {
-                arr[row][col] = Integer.MIN_VALUE;
-                System.out.println("Seat canceled successfully!");
+            if (movies[row][col] == 1) {
+                movies[row][col] = Integer.MIN_VALUE;
+                System.out.println("Seat cancelled successfully!");
             } else {
                 System.out.println("Seat is not reserved.");
             }
         } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Invalid row or column.");
-        }
-    }
-
-    public void displaySeats() {
-        System.out.println("Seats:");
-        for (int row = 0; row < arr.length; row++) {
-            for (int col = 0; col < arr[0].length; col++) {
-                System.out.print(arr[row][col] + " ");
-            }
-            System.out.println();
+            System.out.println("Seat provided does not exist.");
         }
     }
 }
