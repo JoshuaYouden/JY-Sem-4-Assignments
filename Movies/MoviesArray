@@ -32,4 +32,51 @@ public class MoviesArray {
         }
     }
   }
+
+  public void traverseSeats() {
+    try {
+        for (int row = 0; row < arr.length; row++) {
+            for (int col = 0; col < arr[0].length; col++) {
+                System.out.print(arr[row][col] + " ");
+            }
+            System.out.println();
+        }
+    } catch (Exception e) {
+        System.out.println("Array does not exist.");
+    }
+  }
+
+  public void searchSeat(int seatNumber) {
+    for (int row = 0; row < arr.length; row++) {
+        for (int col = 0; col < arr[0].length; col++) {
+            if (arr[row][col] == seatNumber) {
+                System.out.println("Seat found at row: " + row + " and column: " + col);
+                return;
+            }
+        }
+    }
+  }
+
+    public void cancelSeat(int row, int col) {
+        try {
+            if (arr[row][col] == 1) {
+                arr[row][col] = Integer.MIN_VALUE;
+                System.out.println("Seat canceled successfully!");
+            } else {
+                System.out.println("Seat is not reserved.");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Invalid row or column.");
+        }
+    }
+
+    public void displaySeats() {
+        System.out.println("Seats:");
+        for (int row = 0; row < arr.length; row++) {
+            for (int col = 0; col < arr[0].length; col++) {
+                System.out.print(arr[row][col] + " ");
+            }
+            System.out.println();
+        }
+    }
 }
