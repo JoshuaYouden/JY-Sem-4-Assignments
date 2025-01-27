@@ -79,4 +79,25 @@ public class SingleLinkedList {
 
 
     //Delete Method
+    public void deleteNode(int location) {
+        if (head == null) {
+            System.out.println("SLL does not exist");
+            return;
+        } else {
+            if (location == 0) {
+                head = head.next;
+            } else if (location >= size) {
+                System.out.println("Invalid location");
+            } else {
+                Node tempNode = head;
+                int index = 0;
+                while (index < location - 1) {
+                    tempNode = tempNode.next;
+                    index++;
+                }
+                tempNode.next = tempNode.next.next;
+            }
+            size--;
+        }
+    }
 }
