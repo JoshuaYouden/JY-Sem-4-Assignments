@@ -33,10 +33,12 @@ public class UndoRedoManager<T> {
     //perform an operation
     public void addState (T newState) {
         Node newNode = new Node(newState);
+
         if (currentState != null) {
             newNode.prev = currentState;
             currentState.next = newNode;
         }
+
         currentState = newNode;
         currentState.next = null;
 
@@ -46,20 +48,31 @@ public class UndoRedoManager<T> {
     public T redo(){
         if (currentState == null || currentState.next == null) {
             System.err.println("No states to redo");
+            return null;
         }
+
         currentState = currentState.next;
         return currentState.state;
     }
 
     public void printStates() {
+        if (currentState == null) {
+            System.out.println("No states found");
+            return;
+        }
+
         Node tempNode = currentState;
-        while (tempNode != null && tempNode.prev != null) {
+        while (tempNode.prev != null) {
             tempNode = tempNode.prev;
         }
-        while (tempNode != null) {
-            System.out.println(tempNode.state + " <> ");
+
+        while (tempNode != currentState) {
+            System.out.print(tempNode.state + " <> ");
             tempNode = tempNode.next;
         }
+
+        System.out.print(currentState.state);
+        System.out.println();
     }
 
     public static void main(String[] args) {
