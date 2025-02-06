@@ -1,73 +1,50 @@
 package Queues;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class AnimalShelter {
-    private int[] arr;
-    private int backOfQueue;
-    private int frontOfQueue;
-    private int numberOfAnimals;
+    private Queue<Dog> dogQueue;
+    private Queue<Cat> catQueue;
+    private int order;
 
-    public AnimalShelter(int size) {
-        this.arr = new int[size];
-        this.backOfQueue = -1;
-        this.frontOfQueue = -1;
-        this.numberOfAnimals = 0;
-        System.out.println("Queue for animal shelter created with a size of " + size);
+    public AnimalShelter() {
+        dogQueue = new LinkedList<>();
+        catQueue = new LinkedList<>();
+        order = 0;
     }
 
-    public boolean isFull() {
-        if (backOfQueue == arr.length - 1) {
-            return true;
-        } else {
-            return false;
+    public void enqueue(Animal animal) {
+        animal.setOrder(order);
+        order++;
+        if (animal instanceof Dog) {
+            dogQueue.add((Dog) animal);
+        } else if (animal instanceof Cat) {
+            catQueue.add((Cat) animal);
         }
     }
 
-    public boolean isEmpty() {
-        return (numberOfAnimals == 0);
-    }
+    public Animal dequeueAny() {
+        if (dogQueue.isEmpty()) {
+            return dequeueCat();
+        } else if (catQueue.isEmpty()) {
+            return dequeueDog();
+        }
+        Dog oldestDog = dogQueue.peek();
+        Cat oldestCat = catQueue.peek();
 
-    public void enQueue(int animals) {
-        if (isFull()) {
-            System.out.println("The Queue is full, sorry!");
-        } else if (isEmpty()) {
-            frontOfQueue = 0;
-            backOfQueue++;
-            arr[backOfQueue] = animals;
-            System.out.println("Inserted " + animals + " to the Queue!");
+        if (oldestDog.getOrder() < oldestCat.getOrder()) {
+            return dogQueue.poll();
         } else {
-            backOfQueue++;
-            numberOfAnimals++;
-            arr[backOfQueue] = animals;
-            System.out.println("Inserted " + animals + " to the Queue!");
+            return catQueue.poll();
         }
     }
 
-    public int deQueue() {
-        int result = 0;
-        if (isEmpty()) {
-            System.out.println("The Queue is empty.");
-        } else {
-            result = arr[frontOfQueue];
-            frontOfQueue++;
-            if (frontOfQueue > backOfQueue) {
-                frontOfQueue = backOfQueue = -1;
-            }
-            numberOfAnimals--;
-        }
-        return result;
+    public Dog dequeueDog() {
+        return dogQueue.poll();
     }
 
-    public int peek() {
-        if (!isEmpty()) {
-            return arr[frontOfQueue];
-        } else {
-            System.out.println("The Queue is empty.");
-            return -1;
-        }
-    }
-
-    public void deleteQueue() {
-        arr = null;
-        System.out.println("Queue has been deleted.");
+    public Cat dequeueCat() {
+        return catQueue.poll();
     }
 }
